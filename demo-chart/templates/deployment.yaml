@@ -36,7 +36,7 @@ spec:
         - configMap:
             defaultMode: 420
             items:
-            - key: application.html
-              path: application.html
+              - key: application.html
+                path: application.html
             name: application-prod
           name: application-prod

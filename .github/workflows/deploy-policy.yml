@@ -22,6 +22,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - name: Validate helm chart yaml integrity
       
       - name: Validate k8s manifests using conftest policies
         uses: instrumenta/conftest-action@master
