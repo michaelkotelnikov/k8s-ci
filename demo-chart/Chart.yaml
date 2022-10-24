@@ -1,6 +1,9 @@
 apiVersion: v2
 name: demo-chart
 description: A Helm chart for Kubernetes
+maintainers:
+  - name: michaelkotelnikov
+    email: mkotelni@redhat.com
 
 # A chart can be either an 'application' or a 'library' chart.
 #
