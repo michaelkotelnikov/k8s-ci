@@ -22,6 +22,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - name: Validate k8s manifests YAML integrity 
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: manifests
+          yamllint_config_filepath: yamllint/conf.yaml
       
       - name: Validate k8s manifests using conftest policies
         uses: instrumenta/conftest-action@master
