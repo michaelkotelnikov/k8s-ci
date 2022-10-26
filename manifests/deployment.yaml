@@ -19,6 +19,8 @@ spec:
         runAsUser: 1001
       containers:
         - name: apache
+          securityContext:
+            readOnlyRootFilesystem: true
           image: docker.io/bitnami/apache:2.4.46
           imagePullPolicy: IfNotPresent
           ports:
