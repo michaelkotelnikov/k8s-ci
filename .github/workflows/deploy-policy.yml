@@ -27,25 +27,25 @@ jobs:
         uses: karancode/yamllint-github-action@master
         with:
           yamllint_file_or_dir: manifests
-          yamllint_config_filepath: yamllint/conf.yaml
+          yamllint_config_filepath: ci/yamllint/conf.yaml
 
       - name: Validate helm chart YAML integrity 
         uses: karancode/yamllint-github-action@master
         with:
           yamllint_file_or_dir: demo-chart/templates
-          yamllint_config_filepath: yamllint/conf.yaml
+          yamllint_config_filepath: ci/yamllint/conf.yaml
       
       - name: Validate k8s manifests using conftest policies
         uses: instrumenta/conftest-action@master
         with:
           files: manifests
-          policy: conftest
+          policy: ci/conftest
 
       - name: Validate helm charts using conftest policies
         uses: instrumenta/conftest-action/helm@master
         with:
           chart: demo-chart
-          policy: conftest
+          policy: ci/conftest
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
@@ -60,13 +60,5 @@ jobs:
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.3.1
 
-      - name: Run chart-testing (list-changed)
-        id: list-changed
-        run: |
-          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
-          if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
-          fi
-
       - name: Run chart-testing (lint)
-        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
+        run: ct lint --lint-conf ci/chart-testing/lintconf.yaml --chart-yaml-schema ci/chart-testing/chart_schema.yaml --target-branch ${{ github.event.repository.default_branch }}
