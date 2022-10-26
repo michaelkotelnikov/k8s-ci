@@ -14,6 +14,9 @@ spec:
       labels:
         app: webserver
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
       containers:
         - name: apache
           image: docker.io/bitnami/apache:2.4.46
