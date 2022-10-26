@@ -62,3 +62,8 @@ jobs:
 
       - name: Run chart-testing (lint)
         run: ct lint --lint-conf ci/chart-testing/lintconf.yaml --chart-yaml-schema ci/chart-testing/chart_schema.yaml --target-branch ${{ github.event.repository.default_branch }}
+
+      - name: Scan k8s manifests with kube-linter
+        uses: stackrox/kube-linter-action@v1.0.4
+        with:
+          directory: manifests
